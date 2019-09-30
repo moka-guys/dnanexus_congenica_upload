@@ -38,14 +38,15 @@
       "class": "string",
       "default":"",
       "optional": true
-    },
-    {
-      "name": "ir_file",
-      "label": "ir_file",
-      "help": "file used by upload client to match files to samples and denote family relationships",
-      "class": "file",
-      "optional": true
     }
+    // ,
+    // {
+    //   "name": "ir_file",
+    //   "label": "ir_file",
+    //   "help": "file used by upload client to match files to samples and denote family relationships",
+    //   "class": "file",
+    //   "optional": true
+    // }
   ],
   "outputSpec": [
     {

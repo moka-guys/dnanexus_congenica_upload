@@ -1,0 +1,89 @@
+{
+  "name": "sapientia_upload_v1.0",
+  "title": "sapientia_upload_v1.0",
+  "summary": "v1.0 - Upload to Congenica Sapientia",
+  "tags": [
+  ],
+  "properties": {
+    "github release": "v1.0"
+  },
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "VCF",
+      "label": "VCF files",
+      "help": "An array of VCFs to be uploaded",
+      "class": "array:file",
+      "optional": false
+    },
+    {
+      "name": "BAMs",
+      "label": "BAM files",
+      "help": "An array of BAMs to be uploaded",
+      "class": "array:file",
+      "optional": true
+    },
+    {
+      "name": "sapientia_project",
+      "label": "sapientia_project",
+      "help": "ID of sapientia project to upload samples to, eg 123",
+      "class": "string",
+      "default":"123",
+      "optional": false
+    },
+    {
+      "name": "analysis_name",
+      "label": "analysis_name",
+      "help": "Name of analysis",
+      "class": "string",
+      "default":"",
+      "optional": true
+    },
+    {
+      "name": "ir_file",
+      "label": "ir_file",
+      "help": "file used by upload client to match files to samples and denote family relationships",
+      "class": "file",
+      "optional": true
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "logfile",
+      "label": "upload log files",
+      "help": "Log files produced by the upload client.",
+      "class": "array:file"
+    },
+    {
+      "name": "ir_file",
+      "label": "ir_file",
+      "help": "csv file used to denote sample details.",
+      "class": "file"
+    }
+  ],
+  "runSpec": {
+    "execDepends": [
+    ],
+    "distribution" : "Ubuntu",
+    "release":"16.04",
+    "file": "src/code.sh",
+    "interpreter": "bash",
+    "assetDepends": [
+    ]    
+  },
+  "access": {
+    "allProjects":"VIEW",
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem1_ssd1_x2"
+        }
+      }
+    }
+  }
+}

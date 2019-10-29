@@ -10,17 +10,34 @@
   "dxapi": "1.0.0",
   "inputSpec": [
     {
-      "name": "VCF",
-      "label": "VCF files",
+      "name": "vcfs",
+      "label": "VCF file(s)",
       "help": "An array of VCFs to be uploaded",
       "class": "array:file",
+      "patterns": ["*.vcf","*.vcf.gz"],
       "optional": false
     },
     {
-      "name": "BAMs",
-      "label": "BAM files",
+      "name": "bams",
+      "label": "BAM file(s)",
       "help": "An array of BAMs to be uploaded",
       "class": "array:file",
+      "patterns": ["*.bam"],
+      "optional": true
+    },
+    {
+      "name": "analysis_name",
+      "label": "analysis_name",
+      "help": "An optional analysis_name which will be used to name the analysis in sapientia.",
+      "class": "string",
+      "optional": true
+    },
+    {
+      "name": "ir_csv",
+      "label": "ir_csv_file",
+      "help": "An ir.csv file which is used by the congenica upload agent to provide sample metadata and match sample to file(s).",
+      "class": "file",
+      "patterns": ["*.csv"],
       "optional": true
     },
     {
@@ -28,32 +45,10 @@
       "label": "sapientia_project",
       "help": "ID of sapientia project to upload samples to, eg 123",
       "class": "string",
-      "default":"123",
       "optional": false
-    },
-    {
-      "name": "analysis_name",
-      "label": "analysis_name",
-      "help": "Name of analysis",
-      "class": "string",
-      "default":"",
-      "optional": true
     }
   ],
-  "outputSpec": [
-    {
-      "name": "logfile",
-      "label": "upload log files",
-      "help": "Log files produced by the upload client.",
-      "class": "array:file"
-    },
-    {
-      "name": "ir_file",
-      "label": "ir_file",
-      "help": "csv file used to denote sample details.",
-      "class": "file"
-    }
-  ],
+  "outputSpec": [],
   "runSpec": {
     "execDepends": [
     ],
@@ -65,7 +60,7 @@
     ]    
   },
   "access": {
-    "allProjects":"VIEW",
+    "allProjects":"UPLOAD",
     "network": [
       "*"
     ]

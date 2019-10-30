@@ -92,6 +92,8 @@ then
     done
 # if ir_csv file has been provided
 else
+    # if ir.csv file given the analysis name is also required - put a test in here.
+    
     mark-section "upload samples using provided ir.csv file"
     # need to populate filepaths for each sample
     # loop through provided ir.csv one line at a time

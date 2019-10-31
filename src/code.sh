@@ -14,7 +14,7 @@ dx-download-all-inputs --parallel
 
 mark-section "setting up congenica upload client docker image"
 # docker load
-docker load -i '/home/dnanexus/congenica-client-2.2.0.0_2.tar.gz' 
+docker load -i '/home/dnanexus/congenica-client-2.2.0.0_3.tar.gz' 
 
 mark-section "determine run specific variables"
 # get project - this is an string input
@@ -82,7 +82,7 @@ then
         mark-section "upload using docker image"
         # docker run - mount the home directory as a share, use the env_file, ir_file.csv, $sapientia_project and $analysis_name values determined above. 
         # Write log direct into output folder
-        docker run -v /home/dnanexus/:/home/dnanexus/ --env-file ~/env_file congenica-client:2.2.0.0_2 --ir ~/out/ir_file/sapientia_logs/$samplename.csv --project $sapientia_project --name $analysis_name --log ~/out/ir_file/sapientia_logs/"$analysis_name"_upload.log
+        docker run -v /home/dnanexus/:/home/dnanexus/ --env-file ~/env_file congenica-client:2.2.0.0_3 --ir ~/out/ir_file/sapientia_logs/$samplename.csv --project $sapientia_project --name $analysis_name --log ~/out/ir_file/sapientia_logs/"$analysis_name"_upload.log
         docker_status=$?
         if [ $docker_status -ne 0 ]
         then
@@ -154,7 +154,7 @@ else
     mark-section "upload using docker image"
     # docker run - mount the home directory as a share, use the env_file, ir_file.csv, $sapientia_project and $analysis_name values determined above. 
     # Write log direct into output folder
-    docker run -v /home/dnanexus/:/home/dnanexus/ --env-file ~/env_file congenica-client:2.2.0.0_2 --ir ~/out/ir_file/sapientia_logs/$analysis_name.csv --project $sapientia_project --name $analysis_name --log ~/out/ir_file/sapientia_logs/"$analysis_name"_upload.log
+    docker run -v /home/dnanexus/:/home/dnanexus/ --env-file ~/env_file congenica-client:2.2.0.0_3 --ir ~/out/ir_file/sapientia_logs/$analysis_name.csv --project $sapientia_project --name $analysis_name --log ~/out/ir_file/sapientia_logs/"$analysis_name"_upload.log
     docker_status=$?
     if [ $docker_status -ne 0 ]
     then

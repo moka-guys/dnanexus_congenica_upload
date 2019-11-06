@@ -14,7 +14,7 @@ dx-download-all-inputs --parallel
 
 mark-section "setting up congenica upload client docker image"
 # docker load
-docker load -i '/home/dnanexus/congenica-client-2.2.0.0_3.tar.gz' 
+docker load -i '/home/dnanexus/congenica-client-2.2.0.0_3.tgz' 
 
 mark-section "determine run specific variables"
 # get project - this is an string input
@@ -40,7 +40,7 @@ then
         
         # extract the sample name to match that in the vcf by taking everything before .vcf (NGS282rpt_16_136819_NA12878_F_WES47_Pan493_S16)
         vcf_basename=$(basename $vcf)
-        samplename=$(python -c "basename='$vcf_basename'; print basename.split('_R1')[0]")
+        samplename=$(python -c "basename='$vcf_basename'; print basename.split('_R1')[0].split('.vcf)[0]'")
         echo $samplename
         if [[ $analysis_name == "" ]]
         then 
@@ -101,7 +101,7 @@ else
     do 
         # capture the samplename, from first field of the line
         vcf_basename=$(basename $vcf)
-        samplename=$(python -c "basename='$vcf_basename'; print basename.split('_R1')[0]")
+        samplename=$(python -c "basename='$vcf_basename'; print basename.split('_R1')[0].split('.vcf')[0]")
         # set up variables to hold filepaths
         vcffile=""
         bamfile=""

@@ -10,18 +10,18 @@
   "dxapi": "1.0.0",
   "inputSpec": [
     {
-      "name": "vcfs",
-      "label": "VCF file(s)",
-      "help": "An array of VCFs to be uploaded",
-      "class": "array:file",
+      "name": "vcf",
+      "label": "VCF file",
+      "help": "VCF to be uploaded",
+      "class": "file",
       "patterns": ["*.vcf","*.vcf.gz"],
       "optional": false
     },
     {
-      "name": "bams",
-      "label": "BAM file(s)",
-      "help": "An array of BAMs to be uploaded",
-      "class": "array:file",
+      "name": "bam",
+      "label": "BAM file",
+      "help": "BAM to be uploaded",
+      "class": "file",
       "patterns": ["*.bam"],
       "optional": true
     },
@@ -30,14 +30,6 @@
       "label": "analysis_name",
       "help": "An optional analysis_name which will be used to name the analysis in sapientia.",
       "class": "string",
-      "optional": true
-    },
-    {
-      "name": "ir_csv",
-      "label": "ir_csv_file",
-      "help": "An ir.csv file which is used by the congenica upload agent to provide sample metadata and match sample to file(s).",
-      "class": "file",
-      "patterns": ["*.csv"],
       "optional": true
     },
     {

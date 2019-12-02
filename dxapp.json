@@ -1,0 +1,69 @@
+{
+  "name": "sapientia_upload_v1.0",
+  "title": "sapientia_upload_v1.0",
+  "summary": "v1.0 - Upload to Congenica Sapientia",
+  "tags": [
+  ],
+  "properties": {
+    "github release": "v1.0"
+  },
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "vcf",
+      "label": "VCF file",
+      "help": "VCF to be uploaded",
+      "class": "file",
+      "patterns": ["*.vcf","*.vcf.gz"],
+      "optional": false
+    },
+    {
+      "name": "bam",
+      "label": "BAM file",
+      "help": "BAM to be uploaded",
+      "class": "file",
+      "patterns": ["*.bam"],
+      "optional": true
+    },
+    {
+      "name": "analysis_name",
+      "label": "analysis_name",
+      "help": "An optional analysis_name which will be used to name the analysis in sapientia.",
+      "class": "string",
+      "optional": true
+    },
+    {
+      "name": "sapientia_project",
+      "label": "sapientia_project",
+      "help": "ID of sapientia project to upload samples to, eg 123",
+      "class": "string",
+      "optional": false
+    }
+  ],
+  "outputSpec": [],
+  "runSpec": {
+    "execDepends": [
+    ],
+    "distribution" : "Ubuntu",
+    "release":"16.04",
+    "file": "src/code.sh",
+    "interpreter": "bash",
+    "assetDepends": [
+    ]
+  },
+  "access": {
+    "allProjects":"UPLOAD",
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem1_ssd1_x2"
+        }
+      }
+    }
+  }
+}

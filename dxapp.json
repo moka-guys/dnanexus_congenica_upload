@@ -49,7 +49,7 @@
     "file": "src/code.sh",
     "interpreter": "bash",
     "assetDepends": [
-    ]    
+    ]
   },
   "access": {
     "allProjects":"UPLOAD",

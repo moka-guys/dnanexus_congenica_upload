@@ -28,7 +28,7 @@ The app downloads the sapientia credentials (`sapientia_env`) from 001_Authentic
 ## How does this app work?
 
 The inputs and credentials files are downloaded.
-The docker image provided by Congenica is used to upload samples and files to the platform. The upload client performs a number of checks, such as comparison of samplename and the samplename in the VCF file. This requires an analysis id and ir.csv file.
+The docker image provided by Congenica is used to upload samples and files to the platform. The upload client performs a number of checks, such as comparison of samplename within the ir.csv file and the samplename in the VCF header. The upload agent requires an analysis id and ir.csv file.
 
 The IR.csv file is required by the upload client to link files to each analysis and to add meta data such as sex and family structure.
 This file is created by parsing the VCF file name and extracting the samplename, sex and capturing paths to VCF and BAM files (if provided).

@@ -26,7 +26,7 @@ mkdir -p ~/out/logfile/sapientia_logs/ ~/out/ir_file/sapientia_logs
 # Use case 1 - upload singleton (affected) samples without hpo terms
 # in this case an ir.csv file is not provided and it's created on the fly
 mark-section "Build ir.csv file"
-     
+
 # extract the sample name to match that in the vcf by taking everything before "_R1" eg (NGS282rpt_16_136819_NA12878_F_WES47_Pan493_S16from NGS282rpt_16_136819_NA12878_F_WES47_Pan493_S16_R1_001.refined.vcf.gz)
 samplename=$(python -c "basename='$vcf_prefix'; print basename.split('_R1')[0].split('.vcf')[0]")
 echo $samplename
@@ -84,7 +84,7 @@ dx cd $DX_PROJECT_CONTEXT_ID:
 ls ~/out/ir_file/sapientia_logs
 # make folder for output - use -p so doesn't fail if file already exists
 dx mkdir -p sapientia_logs
-# run dx uplaod command to the desired location - upload all files in the sapientia_logs output folder 
+# run dx upload command to the desired location - upload all files in the sapientia_logs output folder 
 dx upload --brief --path "$DX_PROJECT_CONTEXT_ID:/sapientia_logs/" ~/out/ir_file/sapientia_logs/*
 
 mark-section "determine if app should complete successfully or fail"

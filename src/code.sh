@@ -16,6 +16,12 @@ mark-section "setting up congenica upload client docker image"
 # docker load
 docker load -i '/home/dnanexus/congenica-client-2.2.0.0_3.tgz' 
 
+mark-section "setting up docker run command"
+opts=""
+if [ "$resume" == true ]; then
+	opts="$opts --resume" 
+fi
+
 mark-section "determine run specific variables"
 # get sapientia project - this is an string input
 echo "sapientia project = " $sapientia_project
@@ -62,10 +68,11 @@ echo "$samplename,$sex,,affected,1,,,,,,,,$bamfile,,,,$vcf_path," >> ~/out/ir_fi
 # cat the ir.csv file so it can be seen in the logs for easy troubleshooting (is also an output but will not be output if job fails)
 cat ~/out/ir_file/sapientia_logs/$samplename.csv
 
+
 mark-section "upload using docker image"
 # docker run - mount the home directory as a share, use the env_file, ir_file.csv, $sapientia_project and $analysis_name values determined above. 
 # Write log direct into output folder
-docker run -v /home/dnanexus/:/home/dnanexus/ --env-file ~/env_file congenica-client:2.2.0.0_3 --ir ~/out/ir_file/sapientia_logs/$samplename.csv --project $sapientia_project --name $analysis_name --log ~/out/ir_file/sapientia_logs/"$analysis_name"_upload.log
+docker run -v /home/dnanexus/:/home/dnanexus/ --env-file ~/env_file congenica-client:2.2.0.0_3 --ir ~/out/ir_file/sapientia_logs/$samplename.csv --project $sapientia_project --name $analysis_name --log ~/out/ir_file/sapientia_logs/"$analysis_name"_upload.log $opts
 docker_status=$?
 if [ $docker_status -ne 0 ]
 then

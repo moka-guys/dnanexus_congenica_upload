@@ -1,11 +1,11 @@
 {
-  "name": "sapientia_upload_v1.0",
-  "title": "sapientia_upload_v1.0",
-  "summary": "v1.0 - Upload to Congenica Sapientia",
+  "name": "sapientia_upload_v1.1",
+  "title": "sapientia_upload_v1.1",
+  "summary": "v1.1 - Upload to Congenica Sapientia",
   "tags": [
   ],
   "properties": {
-    "github release": "v1.0"
+    "github release": "v1.1"
   },
   "dxapi": "1.0.0",
   "inputSpec": [
@@ -38,6 +38,14 @@
       "help": "ID of sapientia project to upload samples to, eg 123",
       "class": "string",
       "optional": false
+    },
+    {
+      "name": "resume",
+      "label": "Resume upload",
+      "help": "Resume uploads files to an existing IR, rather than creating a new IR",
+      "class": "boolean",
+      "optional": false,
+      "default": false
     }
   ],
   "outputSpec": [],

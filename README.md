@@ -1,4 +1,4 @@
-# Sapientia upload v1.0
+# Sapientia upload v1.1
 
 ## What does this app do?
 
@@ -17,6 +17,7 @@ This app requires the following inputs:
 
 - **VCF file** - One single sample VCF file.
 - **Project ID** of Sapientia project to upload samples
+- **resume** Boolean flag to denote if files should be uploaded to an existing interpretation request (True), or a new IR should be created (false)
 
 Optional inputs
 

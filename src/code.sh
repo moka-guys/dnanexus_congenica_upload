@@ -7,7 +7,11 @@ mark-section "download inputs"
 successful_app_run=0
 
 # Download sapientia credentials from 001_authentication
-dx cat project-FQqXfYQ0Z0gqx7XG9Z2b4K43:sapientia_env > env_file
+if [[ "$credentials" == "STG" ]]; then
+    dx cat project-FQqXfYQ0Z0gqx7XG9Z2b4K43:sapientia_env_STG > env_file
+elif [[ "$credentials" == "Viapath" ]]; then
+    dx cat project-FQqXfYQ0Z0gqx7XG9Z2b4K43:sapientia_env_Viapath > env_file
+fi
 
 # download all inputs
 dx-download-all-inputs --parallel

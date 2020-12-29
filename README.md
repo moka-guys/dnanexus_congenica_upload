@@ -17,7 +17,6 @@ This app requires the following inputs:
 
 - **VCF file** - One single sample VCF file.
 - **Project ID** of Congenica project to upload samples
-- **resume** Boolean flag to denote if files should be uploaded to an existing interpretation request (True), or a new IR should be created (false)
 - **credentials** - Which credentials file to use (options are Viapath or STG) - either `congenica_env_Viapath` or `congenica_env_STG` are downloaded from 001_Authentication.
 
 Optional inputs

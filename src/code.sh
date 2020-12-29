@@ -22,9 +22,9 @@ docker load -i '/home/dnanexus/congenica-client-2.2.0.0_3.tgz'
 
 mark-section "setting up docker run command"
 opts=""
-if [ "$resume" == true ]; then
-	opts="$opts --resume" 
-fi
+# if [ "$resume" == true ]; then
+# 	opts="$opts --resume" 
+# fi
 
 mark-section "determine run specific variables"
 # get congenica project - this is an string input

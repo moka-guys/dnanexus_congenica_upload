@@ -49,14 +49,6 @@
         "STG"
       ],
       "optional": false
-    },
-    {
-      "name": "resume",
-      "label": "Resume upload",
-      "help": "Resume uploads files to an existing IR, rather than creating a new IR",
-      "class": "boolean",
-      "optional": false,
-      "default": false
     }
   ],
   "outputSpec": [],

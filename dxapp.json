@@ -1,11 +1,11 @@
 {
-  "name": "sapientia_upload_v1.0",
-  "title": "sapientia_upload_v1.0",
-  "summary": "v1.0 - Upload to Congenica Sapientia",
+  "name": "congenica_upload_v1.1",
+  "title": "congenica_upload_v1.1",
+  "summary": "v1.1 - Upload to Congenica platform",
   "tags": [
   ],
   "properties": {
-    "github release": "v1.0"
+    "github release": "v1.1"
   },
   "dxapi": "1.0.0",
   "inputSpec": [
@@ -28,15 +28,26 @@
     {
       "name": "analysis_name",
       "label": "analysis_name",
-      "help": "An optional analysis_name which will be used to name the analysis in sapientia.",
+      "help": "An optional analysis_name which will be used to name the analysis in congenica.",
       "class": "string",
       "optional": true
     },
     {
-      "name": "sapientia_project",
-      "label": "sapientia_project",
-      "help": "ID of sapientia project to upload samples to, eg 123",
+      "name": "congenica_project",
+      "label": "congenica_project",
+      "help": "ID of congenica project to upload samples to, eg 123",
       "class": "string",
+      "optional": false
+    },
+    {
+      "name": "credentials",
+      "label": "credentials_to_use",
+      "help": "Use STG or Viapath credentials for upload",
+      "class": "string",
+      "choices": [
+        "Viapath",
+        "STG"
+      ],
       "optional": false
     }
   ],

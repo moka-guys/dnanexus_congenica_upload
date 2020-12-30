@@ -6,8 +6,12 @@ mark-section "download inputs"
 
 successful_app_run=0
 
-# Download sapientia credentials from 001_authentication
-dx cat project-FQqXfYQ0Z0gqx7XG9Z2b4K43:sapientia_env > env_file
+# Download credentials from 001_authentication
+if [[ "$credentials" == "STG" ]]; then
+    dx cat project-FQqXfYQ0Z0gqx7XG9Z2b4K43:congenica_env_STG > env_file
+elif [[ "$credentials" == "Viapath" ]]; then
+    dx cat project-FQqXfYQ0Z0gqx7XG9Z2b4K43:congenica_env_Viapath > env_file
+fi
 
 # download all inputs
 dx-download-all-inputs --parallel
@@ -16,12 +20,18 @@ mark-section "setting up congenica upload client docker image"
 # docker load
 docker load -i '/home/dnanexus/congenica-client-2.2.0.0_3.tgz' 
 
+mark-section "setting up docker run command"
+opts=""
+# if [ "$resume" == true ]; then
+# 	opts="$opts --resume" 
+# fi
+
 mark-section "determine run specific variables"
-# get sapientia project - this is an string input
-echo "sapientia project = " $sapientia_project
+# get congenica project - this is an string input
+echo "congenica project = " $congenica_project
 
 # make output folders for log file and ir_file
-mkdir -p ~/out/logfile/sapientia_logs/ ~/out/ir_file/sapientia_logs
+mkdir -p ~/out/logfile/congenica_logs/ ~/out/ir_file/congenica_logs
 
 # Use case 1 - upload singleton (affected) samples without hpo terms
 # in this case an ir.csv file is not provided and it's created on the fly
@@ -55,37 +65,38 @@ then
 fi
 
 # make a copy of the packaged ir.csv template file containing header
-cp ~/ir_file.csv ~/out/ir_file/sapientia_logs/$samplename.csv
+cp ~/ir_file.csv ~/out/ir_file/congenica_logs/$samplename.csv
 # write the sample details to the ir csv file
-echo "$samplename,$sex,,affected,1,,,,,,,,$bamfile,,,,$vcf_path," >> ~/out/ir_file/sapientia_logs/$samplename.csv
+echo "$samplename,$sex,,affected,1,,,,,,,,$bamfile,,,,$vcf_path," >> ~/out/ir_file/congenica_logs/$samplename.csv
 
 # cat the ir.csv file so it can be seen in the logs for easy troubleshooting (is also an output but will not be output if job fails)
-cat ~/out/ir_file/sapientia_logs/$samplename.csv
+cat ~/out/ir_file/congenica_logs/$samplename.csv
+
 
 mark-section "upload using docker image"
-# docker run - mount the home directory as a share, use the env_file, ir_file.csv, $sapientia_project and $analysis_name values determined above. 
+# docker run - mount the home directory as a share, use the env_file, ir_file.csv, $congenica_project and $analysis_name values determined above. 
 # Write log direct into output folder
-docker run -v /home/dnanexus/:/home/dnanexus/ --env-file ~/env_file congenica-client:2.2.0.0_3 --ir ~/out/ir_file/sapientia_logs/$samplename.csv --project $sapientia_project --name $analysis_name --log ~/out/ir_file/sapientia_logs/"$analysis_name"_upload.log
+docker run -v /home/dnanexus/:/home/dnanexus/ --env-file ~/env_file congenica-client:2.2.0.0_3 --ir ~/out/ir_file/congenica_logs/$samplename.csv --project $congenica_project --name $analysis_name --log ~/out/ir_file/congenica_logs/"$analysis_name"_upload.log $opts
 docker_status=$?
 if [ $docker_status -ne 0 ]
 then
     successful_app_run=$docker_status
-    cat /home/dnanexus/out/logfile/sapientia_logs/"$analysis_name"_upload.log
+    cat /home/dnanexus/out/logfile/congenica_logs/"$analysis_name"_upload.log
 fi 
 
 # cat the ir.csv file so it can be seen in the logs for easy troubleshooting (is also an output but will not be output if job fails)
-cat ~/out/ir_file/sapientia_logs/$analysis_name.csv
+cat ~/out/ir_file/congenica_logs/$analysis_name.csv
 
 mark-section "Upload output"
 # to do dx upload need to reset worker variable
 unset DX_WORKSPACE_ID
 # set the project the worker will upload to
 dx cd $DX_PROJECT_CONTEXT_ID:
-ls ~/out/ir_file/sapientia_logs
+ls ~/out/ir_file/congenica_logs
 # make folder for output - use -p so doesn't fail if file already exists
-dx mkdir -p sapientia_logs
-# run dx upload command to the desired location - upload all files in the sapientia_logs output folder 
-dx upload --brief --path "$DX_PROJECT_CONTEXT_ID:/sapientia_logs/" ~/out/ir_file/sapientia_logs/*
+dx mkdir -p congenica_logs
+# run dx upload command to the desired location - upload all files in the congenica_logs output folder 
+dx upload --brief --path "$DX_PROJECT_CONTEXT_ID:/congenica_logs/" ~/out/ir_file/congenica_logs/*
 
 mark-section "determine if app should complete successfully or fail"
 if [ $successful_app_run -eq 0 ]

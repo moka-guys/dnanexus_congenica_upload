@@ -1,0 +1,1 @@
+name,sex,hpo_terms,affection_status,is_proband,family_name,mother_name,father_name,gene_panel_ids,sample_type,protocol,cnv_analysis_requested,bam,fastq_r1,fastq_r2,vcf_cnv,vcf_snv,vcf_sv,priority

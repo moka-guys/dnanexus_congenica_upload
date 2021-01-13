@@ -1,11 +1,11 @@
 {
-  "name": "congenica_upload_v1.1",
-  "title": "congenica_upload_v1.1",
-  "summary": "v1.1 - Upload to Congenica platform",
+  "name": "congenica_upload_v1.2",
+  "title": "congenica_upload_v1.2",
+  "summary": "v1.2 - Upload to Congenica platform",
   "tags": [
   ],
   "properties": {
-    "github release": "v1.1"
+    "github release": "v1.2"
   },
   "dxapi": "1.0.0",
   "inputSpec": [
@@ -56,8 +56,8 @@
       "help": "Use STG or Viapath IR template for upload",
       "class": "string",
       "choices": [
-        "Viapath_IR",
-        "STG_IR"
+        "priority",
+        "non-priority"
       ],
       "optional": false
     }

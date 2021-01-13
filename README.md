@@ -1,4 +1,4 @@
-# Congenica upload v1.1
+# Congenica upload v1.2
 
 ## What does this app do?
 

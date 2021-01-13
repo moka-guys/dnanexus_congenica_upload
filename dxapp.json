@@ -53,7 +53,7 @@
     {
       "name": "IR_template",
       "label": "IR template to use",
-      "help": "Use STG or Viapath IR template for upload",
+      "help": "Use priority or non-priority IR template",
       "class": "string",
       "choices": [
         "priority",

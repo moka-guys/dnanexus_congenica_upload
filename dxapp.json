@@ -49,6 +49,17 @@
         "STG"
       ],
       "optional": false
+    },
+    {
+      "name": "IR_template",
+      "label": "IR template to use",
+      "help": "Use STG or Viapath IR template for upload",
+      "class": "string",
+      "choices": [
+        "Viapath_IR",
+        "STG_IR"
+      ],
+      "optional": false
     }
   ],
   "outputSpec": [],

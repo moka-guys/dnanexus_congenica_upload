@@ -65,9 +65,16 @@ then
 fi
 
 # make a copy of the packaged ir.csv template file containing header
-cp ~/ir_file.csv ~/out/ir_file/congenica_logs/$samplename.csv
-# write the sample details to the ir csv file
-echo "$samplename,$sex,,affected,1,,,,,,,,$bamfile,,,,$vcf_path," >> ~/out/ir_file/congenica_logs/$samplename.csv
+#check which ir.csv file to use
+if [[ "$IR_template" == "priority" ]]; then
+    cp ~/priority_ir_file.csv ~/out/ir_file/congenica_logs/$samplename.csv
+    # write the sample details to the ir csv file
+    echo "$samplename,$sex,,affected,1,,,,,,,,$bamfile,,,,$vcf_path,," >> ~/out/ir_file/congenica_logs/$samplename.csv
+elif [[ "$IR_template" == "non-priority" ]]; then
+    cp ~/non_priority_ir_file.csv ~/out/ir_file/congenica_logs/$samplename.csv
+    # write the sample details to the ir csv file
+    echo "$samplename,$sex,,affected,1,,,,,,,,$bamfile,,,,$vcf_path," >> ~/out/ir_file/congenica_logs/$samplename.csv
+fi
 
 # cat the ir.csv file so it can be seen in the logs for easy troubleshooting (is also an output but will not be output if job fails)
 cat ~/out/ir_file/congenica_logs/$samplename.csv

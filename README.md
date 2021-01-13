@@ -18,7 +18,7 @@ This app requires the following inputs:
 - **VCF file** - One single sample VCF file.
 - **Project ID** of Congenica project to upload samples
 - **credentials** - Which credentials file to use (options are Viapath or STG) - either `congenica_env_Viapath` or `congenica_env_STG` are downloaded from 001_Authentication.
--**IR_template** - Which template to use (options are priority or non-priority)-
+- **IR_template** - Which template to use (options are priority or non-priority)-
 either 'non_priority_ir_file.csv' or 'priority_ir_file.csv' template is used.
 
 Optional inputs

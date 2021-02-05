@@ -9,7 +9,7 @@ successful_app_run=0
 # Download credentials from 001_authentication
 if [[ "$credentials" == "STG" ]]; then
     dx cat project-FQqXfYQ0Z0gqx7XG9Z2b4K43:congenica_env_STG > env_file
-elif [[ "$credentials" == "mokacan" ]]; then
+elif [[ "$credentials" == "Viapath" ]]; then
     dx cat project-FQqXfYQ0Z0gqx7XG9Z2b4K43:congenica_env_Viapath > env_file
 fi
 

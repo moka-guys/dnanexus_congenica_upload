@@ -37,19 +37,20 @@ mkdir -p ~/out/logfile/congenica_logs/ ~/out/ir_file/congenica_logs
 # in this case an ir.csv file is not provided and it's created on the fly
 mark-section "Build ir.csv file"
 
-# extract the sample name to match that in the vcf by taking everything before "_R1" eg (NGS282rpt_16_136819_NA12878_F_WES47_Pan493_S16from NGS282rpt_16_136819_NA12878_F_WES47_Pan493_S16_R1_001.refined.vcf.gz)
+# extract the sample name to match that in the vcf by taking everything before "_R1" eg (NGS282rpt_16_136819_NA12878_F_WES47_Pan493_S16 from NGS282rpt_16_136819_NA12878_F_WES47_Pan493_S16_R1_001.refined.vcf.gz)
+# note this doesn't work for VCfs created by senteion so the analysis name should be specified as an input for these cases
 samplename=$(python -c "basename='$vcf_prefix'; print basename.split('_R1')[0].split('.vcf')[0]")
 echo $samplename
 if [[ $analysis_name == "" ]]
 then 
     analysis_name=$samplename
 fi
-# extract 5th item (single character sex) and extrapolate into full word. If not "M" or "F" set as unknown
-sex_singlechar=$(echo $(basename $vcf) | cut -d"_" -f5); 
-if [[ $sex_singlechar == "F" ]]
+
+# extract single character sex from vcf filename and extrapolate into full word. If not "M" or "F" set as unknown
+if [[ $vcf_path == *_F_* ]]
     then 
         sex="female"
-elif [[ $sex_singlechar == "M" ]]
+elif [[ $vcf_path == *_M_* ]]
     then 
         sex="male"
 else 
@@ -58,7 +59,7 @@ fi
 
 mark-section "matching up BAM files"
 # look if sample name (created above) is present in the bamfile path.
-if [[ "$bam_path" == *$samplename* ]]
+if [[ "$bam_path" == *$analysis_name* ]]
 then
     bamfile=$bam_path
     echo "found matching BAM"
@@ -67,32 +68,29 @@ fi
 # make a copy of the packaged ir.csv template file containing header
 #check which ir.csv file to use
 if [[ "$IR_template" == "priority" ]]; then
-    cp ~/priority_ir_file.csv ~/out/ir_file/congenica_logs/$samplename.csv
+    cp ~/priority_ir_file.csv ~/out/ir_file/congenica_logs/$analysis_name.csv
     # write the sample details to the ir csv file
-    echo "$analysis_name,$sex,,affected,1,,,,,,,,$bamfile,,,,$vcf_path,," >> ~/out/ir_file/congenica_logs/$samplename.csv
+    echo "$analysis_name,$sex,,affected,1,,,,,,,,$bamfile,,,,$vcf_path,," >> ~/out/ir_file/congenica_logs/$analysis_name.csv
 elif [[ "$IR_template" == "non-priority" ]]; then
-    cp ~/non_priority_ir_file.csv ~/out/ir_file/congenica_logs/$samplename.csv
+    cp ~/non_priority_ir_file.csv ~/out/ir_file/congenica_logs/$analysis_name.csv
     # write the sample details to the ir csv file
-    echo "$analysis_name,$sex,,affected,1,,,,,,,,$bamfile,,,,$vcf_path," >> ~/out/ir_file/congenica_logs/$samplename.csv
+    echo "$analysis_name,$sex,,affected,1,,,,,,,,$bamfile,,,,$vcf_path," >> ~/out/ir_file/congenica_logs/$analysis_name.csv
 fi
 
 # cat the ir.csv file so it can be seen in the logs for easy troubleshooting (is also an output but will not be output if job fails)
-cat ~/out/ir_file/congenica_logs/$samplename.csv
+cat ~/out/ir_file/congenica_logs/$analysis_name.csv
 
 
 mark-section "upload using docker image"
 # docker run - mount the home directory as a share, use the env_file, ir_file.csv, $congenica_project and $analysis_name values determined above. 
 # Write log direct into output folder
-docker run -v /home/dnanexus/:/home/dnanexus/ --env-file ~/env_file congenica-client:2.2.0.0_3 --ir ~/out/ir_file/congenica_logs/$samplename.csv --project $congenica_project --name $analysis_name --log ~/out/ir_file/congenica_logs/"$analysis_name"_upload.log $opts
+docker run -v /home/dnanexus/:/home/dnanexus/ --env-file ~/env_file congenica-client:2.2.0.0_3 --ir ~/out/ir_file/congenica_logs/$analysis_name.csv --project $congenica_project --name $analysis_name --log ~/out/ir_file/congenica_logs/"$analysis_name"_upload.log $opts
 docker_status=$?
 if [ $docker_status -ne 0 ]
 then
     successful_app_run=$docker_status
     cat /home/dnanexus/out/logfile/congenica_logs/"$analysis_name"_upload.log
 fi 
-
-# cat the ir.csv file so it can be seen in the logs for easy troubleshooting (is also an output but will not be output if job fails)
-cat ~/out/ir_file/congenica_logs/$analysis_name.csv
 
 mark-section "Upload output"
 # to do dx upload need to reset worker variable

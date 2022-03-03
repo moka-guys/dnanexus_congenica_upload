@@ -1,11 +1,11 @@
 {
-  "name": "congenica_upload_v1.3.1",
-  "title": "congenica_upload_v1.3.1",
-  "summary": "v1.3.1 - Upload to Congenica platform",
+  "name": "congenica_upload_v1.3.2",
+  "title": "congenica_upload_v1.3.2",
+  "summary": "v1.3.2 - Upload to Congenica platform",
   "tags": [
   ],
   "properties": {
-    "github release": "v1.3.1"
+    "github release": "v1.3.2"
   },
   "dxapi": "1.0.0",
   "inputSpec": [
@@ -67,7 +67,8 @@
     "execDepends": [
     ],
     "distribution" : "Ubuntu",
-    "release":"16.04",
+    "release":"20.04",
+    "version": "0",
     "file": "src/code.sh",
     "interpreter": "bash",
     "assetDepends": [

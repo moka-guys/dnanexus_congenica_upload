@@ -1,4 +1,4 @@
-# Congenica upload v1.3.0
+# Congenica upload v1.3.1
 
 ## What does this app do?
 
@@ -23,8 +23,8 @@ either 'non_priority_ir_file.csv' or 'priority_ir_file.csv' template is used.
 
 Optional inputs
 
-- **BAM file(s)** (`*.bam`). Only BAM files with an associated VCF file will be imported.  
-- An **analysis name** - This analysis name is displayed in Congenica. By default this is the samplename.
+- **analysis_name** - This analysis name is used in the first column of the IR and in congenica. It is also used to name output files and match up the BAM file. If not provided this is extracted from the filename (taking everything before _R1 from the vcf name). This is not compatible with files produced from Senteion so analysis_name must be provided in these cases.
+- **BAM file(s)** (`*.bam`). Only BAM files with an associated VCF file will be imported. This is determined by the presence of the analysis_name in the BAM file name.
 
 ## How does this app work?
 
@@ -32,9 +32,8 @@ The inputs and credentials files are downloaded.
 The docker image provided by Congenica is used to upload samples and files to the platform. The upload client performs a number of checks, such as comparison of samplename within the ir.csv file and the samplename in the VCF header. The upload agent requires an analysis id and ir.csv file.
 
 The IR.csv file is required by the upload client to link files to each analysis and to add meta data such as sex and family structure.
-This file is created by parsing the VCF file name and extracting the samplename, sex and capturing paths to VCF and BAM files (if provided).
-The sex is identified using the single letter sex in the samplename. If it is neither "F" or "M" it is treated as unknown. This is case sensitive.
-If not provided, the analysis id is taken from the samplename
+This IR is created by parsing the VCF file name and extracting the samplename (or using ther analysis_name), sex and capturing paths to VCF and BAM files (if provided).
+The sex is identified using the single letter sex in the samplename. If neither "\_F\_" or "\_M\_" are in the vcf filename it is treated as unknown.
 
 The Congenica upload client produces a log file. This is uploaded from the job (but not as an output in order to see why the upload failed). If any uploads are unsucessful the app will fail.
 

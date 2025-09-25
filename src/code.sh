@@ -8,9 +8,9 @@ successful_app_run=0
 
 # Download credentials from 001_authentication
 if [[ "$credentials" == "STG" ]]; then
-    dx cat project-FQqXfYQ0Z0gqx7XG9Z2b4K43:congenica_env_STG > env_file
+    dx cat project-J343FKBKJqkzp6qk6f6BYXB8:file-J343ZYpKJqkXyK4Jx6Qgg8bf > env_file
 elif [[ "$credentials" == "Viapath" ]]; then
-    dx cat project-FQqXfYQ0Z0gqx7XG9Z2b4K43:congenica_env_Viapath > env_file
+    dx cat project-J343FKBKJqkzp6qk6f6BYXB8:file-J343ZZ2KJqkYk23YQ55z276F > env_file
 fi
 
 # download all inputs
@@ -18,6 +18,7 @@ dx-download-all-inputs --parallel
 
 mark-section "setting up congenica upload client docker image"
 # docker load
+dx download project-J32193pK9yGfjP2GyZ94KZf4:file-J340P0pK9yGkFkx6fpQpfGxj
 docker load -i '/home/dnanexus/congenica-client-2.2.0.0_3.tgz' 
 
 mark-section "setting up docker run command"

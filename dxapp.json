@@ -1,11 +1,11 @@
 {
-  "name": "congenica_upload_v1.3.2",
-  "title": "congenica_upload_v1.3.2",
-  "summary": "v1.3.2 - Upload to Congenica platform",
+  "name": "congenica_upload_v1.3.3",
+  "title": "congenica_upload_v1.3.3",
+  "summary": "v1.3.3 - Upload to Congenica platform",
   "tags": [
   ],
   "properties": {
-    "github release": "v1.3.2"
+    "github release": "v1.3.3"
   },
   "dxapi": "1.0.0",
   "inputSpec": [
@@ -81,10 +81,10 @@
     ]
   },
   "regionalOptions": {
-    "aws:us-east-1": {
+    "aws:eu-west-2-g": {
       "systemRequirements": {
         "main": {
-          "instanceType": "mem1_ssd1_x2"
+          "instanceType": "mem1_ssd1_v2_x2"
         }
       }
     }
